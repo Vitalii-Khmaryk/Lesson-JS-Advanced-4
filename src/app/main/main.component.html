@@ -1,0 +1,70 @@
+<div class="container">
+    <header>
+      <p class="text">My phone book!</p>
+      <hr />
+      <input type="text" (focus)="focusCross()" (blur)="blur()" [(ngModel)]="maininp" placeholder="search text goes here"/>
+      <div class="cross" *ngIf="cross" (click)="crossclick()">&#10006;</div>
+      <button class="addBtn" (click)="adder()">Add phone</button>
+    </header>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th> 
+          <span class="clic" (click)="arrowChange()">First name</span>
+          <ng-container *ngIf="ngcontainer">
+          <button class="arrow" *ngIf="peremSort" (click)="changeSort('asc')">&#11014;</button>
+          <button class="arrow" *ngIf="!peremSort" (click)="changeSort('desc')">&#11015;</button>
+        </ng-container>
+        </th>
+
+        <th class="clic">
+          <span (click)="arrowChange2()">Last name</span>
+          <ng-container *ngIf="ngcontainer2">
+          <button class="arrow" *ngIf="peremSort2" (click)="changeSort2('asc2')">&#11014;</button>
+          <button class="arrow" *ngIf="!peremSort2" (click)="changeSort2('desc2')">&#11015;</button>
+          </ng-container>
+        </th>
+
+        <th class="clic">
+         <span (click)="arrowChange3()">Number</span>
+         <ng-container *ngIf="ngcontainer3">
+          <button class="arrow" *ngIf="peremSort3" (click)="changeSort3('asc3')">&#11014;</button>
+          <button class="arrow" *ngIf="!peremSort3" (click)="changeSort3('desc3')">&#11015;</button>
+          </ng-container>
+        </th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userArray | search:maininp | sort:type | sort2:type2 | sort3:type3;index as i">
+        <td>{{user.firstname}}</td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.number}}</td>
+         <td><button class="btnEdit" (click)="editer(i)">Edit</button></td>
+        <td><button class="btnDelete" (click)="deleter(i)">Delete</button></td> 
+      </tr>
+    </tbody>
+</table>
+<ng-container *ngIf="perem">
+  <div class="wrapper">
+   <div class="modal">
+    <div class="d-flex">
+    <p class="p-phone">Add phone</p><div class="img"><span (click)="closed()">&#10006;</span></div>
+    </div>
+    <hr>
+    <div class="div-inp">
+    <input type="text" [(ngModel)]="fnameModal" [ngClass]="redborder" placeholder="first name goes here">
+    <input type="text" [(ngModel)]="snameModal" [ngClass]="redborder" placeholder="second name goes here">
+    <input type="text" [(ngModel)]="numnameModal" [ngClass]="redborder" placeholder="number phone goes here">
+    </div>
+    <hr>
+    <button class="saveBtn" *ngIf="ngifForSave" (click)="saver()">Save</button>
+    <button class="saveBtn" *ngIf="!ngifForSave" (click)="editsaver()">Save</button>
+   </div>
+  </div>
+</ng-container>
+
+  
+  
